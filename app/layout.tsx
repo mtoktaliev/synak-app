@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="ru">
       <body className={nunito.className}>
         <main className="min-h-screen bg-gray-50">
-          <Header className="w-full bg-white/50 backdrop-blur fixed top-0" />
+          <Header />
           {children}
         </main>
       </body>

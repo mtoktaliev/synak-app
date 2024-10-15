@@ -4,12 +4,6 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   NavigationMenu,
   NavigationMenuLink,
   NavigationMenuList,
@@ -17,6 +11,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import { ChevronDown, Globe } from "lucide-react";
 import { Button } from "../ui/button";
+import type { MenuProps } from "antd";
+import { Dropdown, Space } from "antd";
 
 interface Props {
   className?: string;
@@ -47,6 +43,17 @@ const navLinks = [
     id: 5,
     name: "Настройки",
     href: "/settings",
+  },
+];
+
+const items: MenuProps["items"] = [
+  {
+    label: <a href="/">Рус</a>,
+    key: "0",
+  },
+  {
+    label: <a href="/">Кыр</a>,
+    key: "1",
   },
 ];
 
@@ -114,17 +121,19 @@ export const Header: React.FC<Props> = ({ className }) => {
           ))}
         </div>
         <div className="flex items-center gap-4">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-2">
-              <Globe size={20} className="text-gray-500" />
-              Рус
-              <ChevronDown size={20} className="text-gray-500" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Кыр</DropdownMenuItem>
-              <DropdownMenuItem>Рус</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Dropdown
+            menu={{ items }}
+            trigger={["click"]}
+            className="cursor-pointer"
+          >
+            <a onClick={(e) => e.preventDefault()}>
+              <Space>
+                <Globe size={20} className="text-gray-500" />
+                Рус
+                <ChevronDown size={20} className="text-gray-500" />
+              </Space>
+            </a>
+          </Dropdown>
           <Button variant="outline">Выйти</Button>
         </div>
       </div>

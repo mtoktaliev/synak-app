@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/shared/Header";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { ConfigProvider } from "antd";
+import theme from "./antdConfigProvider/themeGonfig";
 
 const nunito = Nunito({
   subsets: ["cyrillic"],
@@ -22,10 +25,16 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={nunito.className}>
-        <main className="min-h-screen bg-gray-50">
-          <Header />
-          {children}
-        </main>
+        <AntdRegistry>
+          <ConfigProvider
+            theme={{ ...theme, token: { fontFamily: nunito.style.fontFamily } }}
+          >
+            <main className="min-h-screen bg-gray-50">
+              <Header />
+              {children}
+            </main>
+          </ConfigProvider>
+        </AntdRegistry>
       </body>
     </html>
   );
